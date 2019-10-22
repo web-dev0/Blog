@@ -1,2 +1,2 @@
 # Blog
- Complete blog website from scratech
+ Complete Blog website from scratch
