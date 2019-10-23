@@ -1,6 +1,12 @@
 <?php 
 require 'Assets\common pages\head.php';
 require 'Assets\common pages\mainheader.php';
+
+$msg = isset($_REQUEST['msg']) ? $_REQUEST['msg'] : '';
+
+if($msg=='data_miss'){
+    ?>  <h1 id="data_miss"><center>ERROR: Fill all necessary Fields.</center></h1>    <?php
+}
 ?>
 
 <div class="centerform">

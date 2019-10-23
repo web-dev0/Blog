@@ -1,20 +1,21 @@
 <?php
-    $conn =new mysqli("localhost","root","","blog_sample");
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-    else{
+    require 'Assets\common pages\connection.php';
         $n = $_POST["name"];
         $e = $_POST["email"];
         $p = $_POST["password"];
 
+    if($n != NULL && $e != NULL && $p != NULL)
+    {
         $sql = "INSERT INTO user_detail (name, email, password) VALUES ('$n', '$e', '$p')";
 
         mysqli_query($conn, $sql);
 
-        $conn->close();
-
-        //header('location:signin.php');
-        header('location:get_query.php');
+        header('location:signin.php?msg=sucess');
     }
+    else
+    {
+        header('location:signup.php?msg=data_miss');
+    }
+
+    
 ?>

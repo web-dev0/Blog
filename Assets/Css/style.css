@@ -74,3 +74,8 @@ footer
 .centerform{
     margin: 10% 0% 12% 40%;
 }
+
+#data_miss{
+    color: red;
+    text-transform: capitalize;
+}

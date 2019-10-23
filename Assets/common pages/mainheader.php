@@ -8,6 +8,8 @@
         <a href="index.php">Home</a>&nbsp&nbsp&nbsp
         <a href="about.php">About</a>&nbsp&nbsp&nbsp
         <a href="contact.php">Contact</a>&nbsp&nbsp&nbsp
+        <a href="createpost.php">Add Post</a>&nbsp;&nbsp;
+        <a href="alluser.php">All User</a>&nbsp;&nbsp;
         <?php
            // if($login == "false")
             echo "<a href=\"signin.php\">Login</a>";
