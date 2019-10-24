@@ -75,7 +75,21 @@ footer
     margin: 10% 0% 12% 40%;
 }
 
-#data_miss{
+#error_msg{
     color: red;
     text-transform: capitalize;
+}
+
+#sucess_msg{
+    color: green;
+    text-transform: capitalize;
+}
+
+table, th, td {
+    border: 2px solid darkblue;
+    text-align: center;
+}
+
+#full_width{
+    width: 100%
 }

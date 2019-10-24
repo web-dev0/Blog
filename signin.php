@@ -5,34 +5,31 @@ require 'Assets\common pages\connection.php';
 
 $e = isset($_REQUEST['email']) ? $_REQUEST['email'] : '';
 $p = isset($_REQUEST['password']) ? $_REQUEST['password'] : '';
+$msg = isset($_REQUEST['msg']) ?  $_REQUEST['msg'] : '';
 
 if($e != NULL && $p != NULL)
 {
-    //$sql = "select id, name, email, password from user_detail where email = ". $e . " and password = ".$p;
-   $sql = "select * from user_detail  where email='$e' AND password='$p'";
+    $sql = "select * from user_detail  where email='$e' AND password='$p'";
 
-$res=mysqli_query($conn,$sql);
-print_r($res);die;
-    if (!$result = $conn->query($sql)) 
+    $result=mysqli_query($conn,$sql);
+
+    if ($result) 
     {
-        print_r($result);
-
         if($row = $result->fetch_assoc())
         {
-            print_r($row);die;
-            $location = "location:index.php?id=".$row['id'];
-            header($location);
+            header('location:index.php');
         }
         else
         {
-            echo " <h1 id=\"data_miss\"><center>ERROR: DATA NOT FETCH</center></h1> ";
+            echo " <h1 id=\"error_msg\"><center>ERROR: Login Failed</center></h1> ";
         }
-    } 
-    else 
-    {
-        echo " <h1 id=\"data_miss\"><center>ERROR: Login Failed</center></h1> ";
     }
 }
+else if($msg == 'sucess')
+{
+    echo " <h1 id=\"sucess_msg\"><center>Registered Sucessfully</center></h1> ";
+}
+
 ?>
  
 <div class="centerform">
