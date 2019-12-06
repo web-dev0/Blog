@@ -39,17 +39,15 @@ body{
 }
 
 .para {
-    display: inline-block;
-    width: 65%;
+    width: auto;
     text-align: justify;
-    margin: 30px 20px 30px 20px;
     font-size: 175%;
+    margin-top: 2%;
 }
 
 .post {
-    width: 90%;
     text-align: justify;
-    margin: 30px 30px 30px 30px;
+    margin: 2%;
     font-size: 175%;
 }
 
@@ -72,7 +70,7 @@ footer
 }
 
 .centerform{
-    margin: 10% 0% 12% 40%;
+    margin: 5% 0% 12% 40%;
 }
 
 #error_msg{

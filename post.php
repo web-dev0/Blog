@@ -1,15 +1,101 @@
 <?php 
-require 'Assets\common pages\variable.php';
 require 'Assets\common pages\head.php';
 require 'Assets\common pages\mainheader.php';
+require 'Assets\common pages\connection.php';
+
+$id = isset($_REQUEST['id']) ?  $_REQUEST['id'] : '';
+$msg = isset($_REQUEST['msg']) ? $_REQUEST['msg'] : '';
+
+if($msg == 'comment')
+{
+	$comment = $_REQUEST['comment'];
+	if($comment!='')
+	{
+		$cid =$_SESSION['cid'];
+		$sql = "INSERT INTO comment (comment, user_id, post_id) 
+		 		VALUES ('$comment', '$cid', '$id')";
+	            mysqli_query($conn, $sql);
+	            $dir = "location:post.php?msg=sucess&id=".$id;
+	            header($dir);
+    }
+
+}
+else if($msg == 'sucess')
+{
+    echo " <h1 id=\"sucess_msg\"><center>Commented Sucessfully</center></h1> ";
+}
+
+$sql = "select * from post where status='1' AND id='$id'";
+$result=mysqli_query($conn,$sql);
+
+if ($result->num_rows > 0) 
+{
+	while($row = $result->fetch_assoc()) 
+    {
+?>
+	<div id="title"><?php echo strtoupper($row["title"]); ?></div>
+	<div>
+	    <img src="Assets\images\<?php echo $row["image"]; ?>" alt="Image" height="auto" width="100%">
+	</div>
+	<div class="post">
+	    <?php echo $row["detail"]; ?>
+	</div>
+<?php 
+		}
+}
+
 ?>
 
-<div id="title">PERSONAL BLOG 1</div>
-<div style="padding-left:2%;">
-    <img src="Assets/Images/dp.jpg" alt="Image" height="600px" width="500px">
-</div>
-<div class="post" sty>
-    I am graduated in Computer Science from the National University of Computer and Emerging Science (FAST University). I can develop different types of web-based applications such as android or web applications using the latest frameworks in any domain like C/C++, Java, PHP, etc. I have done numerous project so that’s why I can work in a fast-paced environment to meet deadlines and project works are highly organized with a creative flair. I also use an efficient algorithm to enhance application performance by utilizing minimum space. On the other hand, my interest is working in Development, Programming at different levels, finding new ways to solve the problem.
-</div>
 
-<?php require 'Assets\common pages\footer.php'; ?>
+	<div style="font-size: 50px; font-family: monospace; color: blue; font-weight: bold;">Comment</div>
+    <br>
+    <?php
+    	if(isset($_SESSION['cid']))
+		{
+	?>
+
+
+    <form action="post.php?msg=comment&id=<?php echo $id ?>" method="post" style="margin-bottom: 2%;">
+        <label>Comment:</label>
+        <input type="text" name="comment" style="width: 75%;">
+        <input type="submit" value="Comment">
+    </form>
+
+    <br><br><br>
+    
+    <?php
+	}
+    	$sql = "SELECT name, img, comment FROM user_detail JOIN COMMENT ON user_detail.id = COMMENT.user_id WHERE COMMENT.post_id = '$id'";
+		$result=mysqli_query($conn,$sql);
+		
+		if ($result->num_rows > 0) 
+		{
+			while($row = $result->fetch_assoc()) 
+		    {
+		    	
+
+    ?>
+    <img src="Assets\images\<?php 
+    	if($row['img'])
+    		echo $row['img'];
+    	else
+    		echo 'user.png';
+    ?>" 
+    height='100%' width='3%'> 
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <div style="font-size: 300%; font-family: monospace; font-weight: bold; display: inline-block;">	
+    	<?php echo $row['name']?>:	
+    </div>&nbsp;&nbsp;
+
+    <div style="font-size: 250%; font-family: monospace;  display: inline-block;">	
+    	<?php echo $row['comment']?>	
+    </div>
+    <br><br>
+	<?php 
+			}
+	}
+	?>
+	<br><br>
+<?php
+require 'Assets\common pages\footer.php'; 
+?>
